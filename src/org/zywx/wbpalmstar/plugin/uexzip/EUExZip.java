@@ -26,6 +26,7 @@ import org.zywx.wbpalmstar.plugin.uexzip.de.idyl.winzipaes.impl.AESEncrypterBC;
 import org.zywx.wbpalmstar.plugin.uexzip.de.idyl.winzipaes.impl.ExtZipEntry;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 public class EUExZip extends EUExBase {
@@ -35,7 +36,7 @@ public class EUExZip extends EUExBase {
 	public static final String F_CALLBACK_NAME_UNZIP = "uexZip.cbUnZip";
 
 	public static final String m_encoding = "GBK";
-
+	private static final String TAG="appcan";
 	Context m_context;
 
 	public EUExZip(Context context, EBrowserView inParent) {
@@ -74,6 +75,7 @@ public class EUExZip extends EUExBase {
 		}
 		String inSrcPath = parm[0], inZippedPath = parm[1];
 		String newInSrcPath = getPath(inSrcPath);
+        Log.i(TAG,"newInSrcPath: "+newInSrcPath);
 		if (newInSrcPath == null) {
 			jsCallback(F_CALLBACK_NAME_ZIP, 0, EUExCallback.F_C_INT,
 					EUExCallback.F_C_FAILED);
@@ -82,6 +84,7 @@ public class EUExZip extends EUExBase {
 		try {
 			File file = new File(newInSrcPath);
 			if (!file.exists()) {
+                Log.i(TAG,"file.exists(): "+!file.exists());
 				jsCallback(F_CALLBACK_NAME_ZIP, 0, EUExCallback.F_C_INT,
 						EUExCallback.F_C_FAILED);
 				return;
@@ -95,6 +98,7 @@ public class EUExZip extends EUExBase {
 
 			} catch (Exception e) {
 				e.printStackTrace();
+                Log.i(TAG, "Exception: " + e.toString());
 				jsCallback(F_CALLBACK_NAME_ZIP, 0, EUExCallback.F_C_INT,
 						EUExCallback.F_C_FAILED);
 			}
